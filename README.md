@@ -8,10 +8,10 @@ At [Spindle](https://spindle.com/), we're using elasticsearch-metrics with [`che
 Currently, elasticsearch-metrics reports:
 
  * [JVM metrics](http://metrics.codahale.com/maven/metrics-core/apidocs/com/yammer/metrics/core/VirtualMachineMetrics.html) including thread counts, memory usage, uptime, and GC time.
- * [`log4j` metrics](http://metrics.codahale.com/manual/log4j/) including warning and error message rates.
+ * [log4j metrics](http://metrics.codahale.com/manual/log4j/) including warning and error message rates.
  * The document count for selected indices.
 
-To gather additional metrics, hack `MetricsService.java`.
+Gathering additional metrics is easy: just hack `MetricsService.java`.
 
 To generate a plugin archive:
 

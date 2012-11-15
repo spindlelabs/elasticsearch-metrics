@@ -10,6 +10,19 @@
     <packaging>jar</packaging>
     <description>elasticsearch-metrics</description>
     <inceptionYear>2012</inceptionYear>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connectsion>scm:git:git@github.com:spindlelabs/elasticsearch-metrics.git</connection>
+        <developerConnection>scm:git:git@github.com:spindlelabs/elasticsearch-metrics.git
+        </developerConnection>
+        <url>https://github.com/spindlelabs/elasticsearch-metrics</url>
+    </scm>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>

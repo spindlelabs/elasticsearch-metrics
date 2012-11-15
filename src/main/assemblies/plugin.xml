@@ -21,6 +21,7 @@
             <includes>
                 <include>com.yammer.metrics:metrics-core</include>
                 <include>com.yammer.metrics:metrics-graphite</include>
+                <include>com.yammer.metrics:metrics-log4j</include>
             </includes>
         </dependencySet>
     </dependencySets>

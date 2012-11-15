@@ -89,12 +89,14 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
     private synchronized void destroyGraphiteReporter() {
         if (graphiteReporter != null) {
             graphiteReporter.shutdown();
+            graphiteReporter = null;
         }
     }
 
     private synchronized void destroyLoggingMetrics() {
         if (metricsAppender != null) {
             LogManager.getRootLogger().removeAppender(metricsAppender);
+            metricsAppender = null;
         }
     }
 

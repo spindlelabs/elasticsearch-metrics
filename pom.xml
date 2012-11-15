@@ -18,7 +18,7 @@
         </license>
     </licenses>
     <scm>
-        <connectsion>scm:git:git@github.com:spindlelabs/elasticsearch-metrics.git</connection>
+        <connection>scm:git:git@github.com:spindlelabs/elasticsearch-metrics.git</connection>
         <developerConnection>scm:git:git@github.com:spindlelabs/elasticsearch-metrics.git
         </developerConnection>
         <url>https://github.com/spindlelabs/elasticsearch-metrics</url>

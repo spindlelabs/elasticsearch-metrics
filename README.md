@@ -1,5 +1,7 @@
-ElasticSearch Metrics
+elasticsearch-metrics
 =====================
+
+elasticsearch-metrics integrates [Metrics](http://metrics.codahale.com/) with [elasticsearch](http://www.elasticsearch.org/).
 
 To generate a plugin archive:
 

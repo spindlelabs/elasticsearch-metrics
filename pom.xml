@@ -8,7 +8,7 @@
     <artifactId>elasticsearch-metrics</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>ElasticSearch Metrics</description>
+    <description>elasticsearch-metrics</description>
     <inceptionYear>2012</inceptionYear>
 
     <parent>
@@ -59,7 +59,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- ElasticSearch uses log4j, and metrics uses SLF4J -->
+        <!-- elasticsearch uses log4j, and metrics uses SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>

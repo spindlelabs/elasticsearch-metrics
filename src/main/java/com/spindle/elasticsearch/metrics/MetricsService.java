@@ -82,7 +82,7 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
     private synchronized void createLocalMetrics() {
         for (final String indexName : componentSettings.getAsArray("stats.indices")) {
             logger.debug("Enabling index metrics for [{}]", indexName);
-            metricsRegistry.newGauge(this.getClass(), "document count", createDocumentCountGauge(indexName));
+            metricsRegistry.newGauge(this.getClass(), "document count", indexName, createDocumentCountGauge(indexName));
         }
     }
 

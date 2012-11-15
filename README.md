@@ -25,3 +25,8 @@ Then, configure the plugin:
     spindle.elasticsearch.metrics.graphite.report_interval: 1m
     spindle.elasticsearch.metrics.graphite.prefix: elasticsearch
     spindle.elasticsearch.metrics.stats.indices: foo, bar, baz
+
+To do
+-----
+
+ * Add support for [collecting statistics for all indices](https://groups.google.com/d/topic/metrics-user/0h0lbxlPp44/discussion)

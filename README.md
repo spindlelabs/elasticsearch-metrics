@@ -7,7 +7,7 @@ elasticsearch-metrics integrates [Metrics](http://metrics.codahale.com/) with [e
  * [log4j metrics](http://metrics.codahale.com/manual/log4j/) including warning and error message rates.
  * The document count for selected indices.
 
-Gathering additional metrics is easy: just hack `MetricsService.java`.
+Gathering additional metrics (or reporting to other destinations, like [Ganglia](http://metrics.codahale.com/manual/ganglia/#manual-ganglia)) is easy: just hack `MetricsService.java`.
 
 At [Spindle](https://spindle.com/), we're using elasticsearch-metrics with [`check_graphite.py`](https://github.com/spindlelabs/nagios-plugins) to monitor our production elasticsearch clusters.
 

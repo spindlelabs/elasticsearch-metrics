@@ -1,11 +1,11 @@
 elasticsearch-metrics
-=======================
+=====================
 
 elasticsearch-metrics integrates [Metrics](http://metrics.codahale.com/) with [elasticsearch](http://www.elasticsearch.org/) and [Graphite](http://graphite.wikidot.com).
 
 At [Spindle](https://spindle.com/), we're using elasticsearch-metrics with [`check_graphite.py`](https://github.com/spindlelabs/nagios-plugins) to monitor our production elasticsearch clusters.
 
-Currently, elasticsearch-metrics reports:
+elasticsearch-metrics reports these metrics to Graphite:
 
  * [JVM metrics](http://metrics.codahale.com/maven/metrics-core/apidocs/com/yammer/metrics/core/VirtualMachineMetrics.html) including thread counts, memory usage, uptime, and GC time.
  * [log4j metrics](http://metrics.codahale.com/manual/log4j/) including warning and error message rates.

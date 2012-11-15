@@ -14,4 +14,4 @@ Then, configure the plugin:
     spindle.elasticsearch.metrics.graphite.port: 2003
     spindle.elasticsearch.metrics.graphite.report_interval: 1m
     spindle.elasticsearch.metrics.graphite.prefix: elasticsearch
-    spindle.elasticsearch.metrics.stats.indexes: foo, bar, baz
+    spindle.elasticsearch.metrics.stats.indices: foo, bar, baz

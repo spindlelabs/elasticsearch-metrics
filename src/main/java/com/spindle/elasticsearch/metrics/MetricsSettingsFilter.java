@@ -10,6 +10,6 @@ public class MetricsSettingsFilter implements SettingsFilter.Filter {
         settings.remove("metrics.graphite.port");
         settings.remove("metrics.graphite.prefix");
         settings.remove("metrics.graphite.report_interval");
-        settings.remove("metrics.stats.indexes");
+        settings.remove("metrics.stats.indices");
     }
 }

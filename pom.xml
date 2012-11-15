@@ -8,7 +8,7 @@
     <artifactId>elasticsearch-metrics</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>ElasticSearch metrics</description>
+    <description>ElasticSearch Metrics</description>
     <inceptionYear>2012</inceptionYear>
 
     <parent>

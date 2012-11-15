@@ -1,7 +1,7 @@
 elasticsearch-metrics
 =====================
 
-elasticsearch-metrics integrates [Metrics](http://metrics.codahale.com/) with [elasticsearch](http://www.elasticsearch.org/) and [Graphite](http://graphite.wikidot.com). Currently, elasticsearch-metrics tracks and reports:
+elasticsearch-metrics integrates [Metrics](http://metrics.codahale.com/) and [Graphite](http://graphite.wikidot.com) into [elasticsearch](http://www.elasticsearch.org/). Currently, elasticsearch-metrics tracks and reports:
 
  * [JVM metrics](http://metrics.codahale.com/maven/metrics-core/apidocs/com/yammer/metrics/core/VirtualMachineMetrics.html) including thread counts, memory usage, uptime, and GC time.
  * [log4j metrics](http://metrics.codahale.com/manual/log4j/) including warning and error message rates.

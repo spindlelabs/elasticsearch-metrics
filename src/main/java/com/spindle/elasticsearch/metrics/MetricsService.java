@@ -67,7 +67,7 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
                     @Override
                     public Long value() {
                         try {
-                            return node.client().admin().indices().prepareStats(indexName).clear().setDocs(true).execute().get().getTotal().docs().count();
+                            return node.client().admin().indices().prepareStats(indexName).clear().setDocs(true).execute().get().getPrimaries().docs().count();
                         } catch (InterruptedException e) {
                             logger.warn("Could not collect index stats", e);
                             return 0L;

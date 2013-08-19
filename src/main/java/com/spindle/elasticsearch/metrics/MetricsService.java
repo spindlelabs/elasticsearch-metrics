@@ -26,7 +26,7 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
 
     private Graphite graphite;
     private GraphiteReporter graphiteReporter;
-    private Appender metricsAppender;
+    private InstrumentedAppender metricsAppender;
     private MetricRegistry metricsRegistry;
     private final Node node;
 
@@ -63,6 +63,7 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
 
     private synchronized void createLoggingMetrics() {
         metricsAppender = new InstrumentedAppender(metricsRegistry);
+        metricsAppender.activateOptions();
         LogManager.getRootLogger().addAppender(metricsAppender);
     }
 

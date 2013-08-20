@@ -1,9 +1,11 @@
 package com.spindle.elasticsearch.metrics;
 
-import com.yammer.metrics.core.Gauge;
-import com.yammer.metrics.core.MetricsRegistry;
-import com.yammer.metrics.log4j.InstrumentedAppender;
-import com.yammer.metrics.reporting.GraphiteReporter;
+import com.codahale.metrics.Gauge;
+import com.codahale.metrics.MetricFilter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.log4j.InstrumentedAppender;
+import com.codahale.metrics.graphite.*;
+import com.codahale.metrics.jvm.*;
 import org.apache.log4j.Appender;
 import org.apache.log4j.LogManager;
 import org.elasticsearch.ElasticSearchException;
@@ -18,12 +20,14 @@ import org.elasticsearch.node.Node;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.net.InetSocketAddress;
 
 public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
 
+    private Graphite graphite;
     private GraphiteReporter graphiteReporter;
-    private Appender metricsAppender;
-    private MetricsRegistry metricsRegistry;
+    private InstrumentedAppender metricsAppender;
+    private MetricRegistry metricsRegistry;
     private final Node node;
 
     @Inject
@@ -46,26 +50,27 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
             if (graphiteHostname == null)
                 throw new ElasticSearchIllegalArgumentException("Graphite hostname not specified");
 
-            try {
-                graphiteReporter = new GraphiteReporter(metricsRegistry, graphiteHostname, graphitePort, graphitePrefix);
-                graphiteReporter.start(graphiteReportInterval.millis(), TimeUnit.MILLISECONDS);
-                logger.info("Starting Graphite reporter: hostname [{}], port [{}], prefix [{}]",
-                        graphiteHostname, graphitePort, graphitePrefix);
-            } catch (IOException exception) {
-                logger.error("Could not start Graphite reporter", exception);
-            }
+            graphite = new Graphite(new InetSocketAddress(graphiteHostname, graphitePort));
+            graphiteReporter = GraphiteReporter.forRegistry(metricsRegistry)
+                                               .prefixedWith(graphitePrefix)
+                                               .filter(MetricFilter.ALL)
+                                               .build(graphite);
+            graphiteReporter.start(graphiteReportInterval.millis(), TimeUnit.MILLISECONDS);
+            logger.info("Starting Graphite reporter: hostname [{}], port [{}], prefix [{}]",
+                    graphiteHostname, graphitePort, graphitePrefix);
         }
     }
 
     private synchronized void createLoggingMetrics() {
         metricsAppender = new InstrumentedAppender(metricsRegistry);
+        metricsAppender.activateOptions();
         LogManager.getRootLogger().addAppender(metricsAppender);
     }
 
     private Gauge<Long> createDocumentCountGauge(final String indexName) {
         return new Gauge<Long>() {
                     @Override
-                    public Long value() {
+                    public Long getValue() {
                         try {
                             return node.client().admin().indices().prepareStats(indexName).clear().setDocs(true).execute().get().getPrimaries().getDocs().getCount();
                         } catch (InterruptedException e) {
@@ -82,13 +87,13 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
     private synchronized void createLocalMetrics() {
         for (final String indexName : componentSettings.getAsArray("stats.indices")) {
             logger.debug("Enabling index metrics for [{}]", indexName);
-            metricsRegistry.newGauge(this.getClass(), "document count", indexName, createDocumentCountGauge(indexName));
+            metricsRegistry.register(MetricRegistry.name(this.getClass(), "document count"), createDocumentCountGauge(indexName));
         }
     }
 
     private synchronized void destroyGraphiteReporter() {
         if (graphiteReporter != null) {
-            graphiteReporter.shutdown();
+            graphiteReporter.stop();
             graphiteReporter = null;
         }
     }
@@ -102,13 +107,18 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
 
     private synchronized void destroyLocalMetrics() {
         if (metricsRegistry != null) {
-            metricsRegistry.shutdown();
+            //metricsRegistry.shutdown();
             metricsRegistry = null;
         }
     }
 
     private void createMetrics() {
-        metricsRegistry = new MetricsRegistry();
+        metricsRegistry = new MetricRegistry();
+
+        metricsRegistry.register("jvm.fd.ratio", new FileDescriptorRatioGauge());
+        metricsRegistry.register("jvm.gc", new GarbageCollectorMetricSet());
+        metricsRegistry.register("jvm.memory", new MemoryUsageGaugeSet());
+        metricsRegistry.register("jvm.threads", new ThreadStatesGaugeSet());
 
         createGraphiteReporter();
         createLoggingMetrics();
@@ -121,7 +131,7 @@ public class MetricsService extends AbstractLifecycleComponent<MetricsService> {
         destroyLocalMetrics();
 
         if (metricsRegistry != null) {
-            metricsRegistry.shutdown();
+            //metricsRegistry.shutdown();
             metricsRegistry = null;
         }
     }

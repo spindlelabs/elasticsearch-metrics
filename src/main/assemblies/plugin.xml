@@ -19,9 +19,10 @@
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <includes>
-                <include>com.yammer.metrics:metrics-core</include>
-                <include>com.yammer.metrics:metrics-graphite</include>
-                <include>com.yammer.metrics:metrics-log4j</include>
+                <include>com.codahale.metrics:metrics-core</include>
+                <include>com.codahale.metrics:metrics-jvm</include>
+                <include>com.codahale.metrics:metrics-graphite</include>
+                <include>com.codahale.metrics:metrics-log4j</include>
             </includes>
         </dependencySet>
     </dependencySets>
